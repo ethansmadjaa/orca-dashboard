@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/ethansmadjaa/orca-dashboard/security/advisories/new
+    about: Report vulnerabilities privately, never in a public issue.
+  - name: Orca itself
+    url: https://github.com/stablyai/orca/issues
+    about: Bugs in the Orca app or CLI belong upstream.
