@@ -1,14 +1,14 @@
 :root {
-  --bg: #0d0f12;
-  --panel: #15181d;
-  --panel-2: #1b1f26;
-  --border: #262b33;
-  --text: #e6e8eb;
-  --muted: #8a919c;
-  --work: #4c9aff;
+  --bg: #0a0a0a;
+  --panel: #111111;
+  --panel-2: #171717;
+  --border: #262626;
+  --text: #ededed;
+  --muted: #8f8f8f;
+  --work: #ededed;
   --wait: #f5a524;
   --done: #3ecf8e;
-  --idle: #6b7280;
+  --idle: #6b6b6b;
   --error: #f0525f;
   --radius: 10px;
   color-scheme: dark;
@@ -124,8 +124,9 @@ select {
   width: 240px;
 }
 .filters > input:focus,
+.filters select:focus,
 .send input:focus {
-  border-color: var(--work);
+  border-color: var(--text);
 }
 .toggle {
   display: flex;
@@ -204,7 +205,7 @@ select {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--wait) 25%, transparent);
 }
 .card.selected {
-  border-color: var(--work);
+  border-color: var(--text);
 }
 .card-head {
   display: flex;
@@ -240,7 +241,7 @@ select {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--work);
+  background: var(--text);
 }
 .branch {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
@@ -273,24 +274,20 @@ select {
   padding: 5px 8px;
   min-width: 0;
 }
-.chip:hover {
-  border-color: var(--muted);
+@media (hover: hover) {
+  .chip:hover {
+    border-color: var(--muted);
+  }
 }
 .chip-kind {
   font-weight: 600;
   font-size: 12px;
-  color: var(--done);
   white-space: nowrap;
 }
 .chip-kind.closed,
-.chip-kind.pr-merged {
-  color: #a78bfa;
-}
-.chip-kind.pr-open {
-  color: var(--done);
-}
+.chip-kind.pr-merged,
 .chip-kind.pr-closed {
-  color: var(--error);
+  color: var(--muted);
 }
 .chip-text {
   overflow: hidden;
@@ -328,7 +325,7 @@ select {
 
 .comment {
   font-size: 12px;
-  border-left: 2px solid var(--work);
+  border-left: 2px solid var(--muted);
   padding-left: 8px;
   color: var(--text);
 }
@@ -340,6 +337,7 @@ select {
 }
 .agent {
   text-align: left;
+  color: var(--text);
   background: var(--panel-2);
   border: 1px solid transparent;
   border-radius: 8px;
@@ -350,8 +348,10 @@ select {
   gap: 4px;
   min-width: 0;
 }
-.agent:hover {
-  border-color: var(--border);
+@media (hover: hover) {
+  .agent:hover {
+    border-color: var(--border);
+  }
 }
 .agent-head {
   display: flex;
@@ -393,7 +393,7 @@ select {
   gap: 4px 8px;
 }
 .sub {
-  color: var(--work);
+  color: var(--text);
 }
 .card-foot {
   margin-top: auto;
@@ -424,6 +424,7 @@ select {
   flex-wrap: wrap;
 }
 .tab {
+  color: var(--text);
   background: var(--panel-2);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -436,10 +437,10 @@ select {
   white-space: nowrap;
 }
 .tab.active {
-  border-color: var(--work);
+  border-color: var(--text);
 }
 .tab-agent {
-  color: var(--work);
+  color: var(--muted);
   margin-right: 6px;
   font-weight: 600;
 }
@@ -448,7 +449,7 @@ select {
   min-height: 0;
   margin: 0;
   overflow: auto;
-  background: #0a0b0d;
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px;
@@ -457,6 +458,7 @@ select {
   line-height: 1.45;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  overscroll-behavior: contain;
 }
 .send {
   display: flex;
@@ -466,16 +468,16 @@ select {
   flex: 1;
 }
 button {
-  background: var(--work);
+  background: var(--text);
   border: none;
   border-radius: 8px;
   padding: 6px 12px;
   cursor: pointer;
-  color: #fff;
+  color: var(--bg);
 }
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--work);
+  outline: 2px solid var(--text);
   outline-offset: 2px;
 }
 button:disabled {
@@ -486,6 +488,18 @@ button.ghost {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
+}
+/* press feedback on action buttons only: card heads, agent rows and tabs are surfaces */
+@media (prefers-reduced-motion: no-preference) {
+  button:not(.card-head, .agent, .tab) {
+    -webkit-tap-highlight-color: transparent;
+    transition-property: scale;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+  button:not(.card-head, .agent, .tab):not(:disabled):active {
+    scale: 0.96;
+  }
 }
 
 .error {
